@@ -4,6 +4,8 @@ You are an iOS developer and want to make social media or blog post images that 
 
 Use this playground! All you need is your knowledge of SwiftUI. Build a view, provide the desired image dimensions, preview it via Xcode Playgrounds, press export. 🎉
 
+![Example image](media/example-image.png)
+
 ## How to use
 
 First off, when opening the playground, on the top of the "Results Canvas" in Xcode, there is a "Live View" tab. Head there to see the view preview instead of code execution details.
