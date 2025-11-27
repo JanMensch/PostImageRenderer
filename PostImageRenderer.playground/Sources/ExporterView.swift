@@ -48,6 +48,7 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
                 .border(Color.purple, width: 2)
                 .scaleEffect(previewScale)
                 .clipped()
+                .frame(width: exportSize.width * previewScale.width, height: exportSize.height * previewScale.width)
                 .overlay {
                     if exportSuccessful {
                         Text("👍 Export successful 👍")
