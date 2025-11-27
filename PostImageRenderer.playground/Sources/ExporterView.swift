@@ -7,6 +7,7 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
     let backgroundView: BackgroundView
     let exportSize: CGSize
     let fileUrl: URL
+    let scale: CGFloat
     let idealPreviewSize: CGFloat
 
     @State private var exportSuccessful = false
@@ -16,18 +17,21 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
     /// - Parameter backgroundView: The background view of the image.
     /// - Parameter exportSize: The size in pixels that the exported image should have.
     /// - Parameter fileUrl: The path to which you want to export the image to. Should be `.png`.
+    /// - Parameter scale: The scale to use to export the image. Will effectively multiply the `exportSize` and export will be of *way* higher quality. You can manually scale the image back down later to get a crisp result image. Defaults to `3`.
     /// - Parameter idealPreviewSize: Use this to scale the Playgrounds preview to match your screen size. Defaults to 600 px.
     public init(
         targetView: TargetView,
         backgroundView: BackgroundView,
         exportSize: CGSize,
         fileUrl: URL,
+        scale: CGFloat = 3,
         idealPreviewSize: CGFloat = 600
     ) {
         self.targetView = targetView
         self.backgroundView = backgroundView
         self.exportSize = exportSize
         self.fileUrl = fileUrl
+        self.scale = scale
         self.idealPreviewSize = idealPreviewSize
     }
 
@@ -35,6 +39,7 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
         VStack {
             Button("Render to image") {
                 let renderer = ImageRenderer(content: sizedTargetView)
+                renderer.scale = scale
                 if let image = renderer.cgImage {
                     saveImage(image)
                 }
