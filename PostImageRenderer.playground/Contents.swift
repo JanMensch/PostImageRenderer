@@ -17,7 +17,9 @@ struct PostView: View {
             Text("Make images that look like iOS screenshots")
                 .font(.system(size: 50, weight: .thin))
                 .padding(30)
-                .glassEffect(.regular)
+                // Apply glass effect with tinted background to improve content readability.
+                .glassEffect(.clear, in: RoundedRectangle(cornerRadius: 40))
+                .background(Color.black.opacity(0.4).clipShape(RoundedRectangle(cornerRadius: 40)))
                 .padding(.bottom, 50)
 
             HStack(spacing: 20) {

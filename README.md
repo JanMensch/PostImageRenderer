@@ -16,7 +16,7 @@ Build a SwiftUI view to your heart's content and use the export button. You can 
 
 Now there are things that do not work exactly as desired. Apple probably didn't intend Liquid Glass effects to be rendered to a PNG and it seems they have missed a few things on that front.
 
-- Using `Glass.clear.tint(Color.black.opacity(0.1))` will look fine in the preview, but not in the exported image.
+- Using `.glassEffect(.clear.tint(Color.black.opacity(0.1)))` will look fine in the preview, but not in the exported image. Use `.glasEffect(.clear).background(Color.black.opacity(0.1))` instead. There is an example usage in the playground code that includes a clip shape.
 - Some times when combining views in an `HStack` and then applying a `.glassEffect` will look fine in preview, but the only thing rendered is the glass capsule, not the content. This however can easily be fixed by adding the content a second time as an overlay.
 
 ## Contribute
