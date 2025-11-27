@@ -1,3 +1,5 @@
+import Foundation
+import UniformTypeIdentifiers
 import SwiftUI
 
 /// Wraps your view and shows an "export" button. Saves the image to given `fileUrl` when button pressed.
@@ -83,8 +85,15 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
     }
 
     private func saveImage(_ image: CGImage) {
+        let fileUrl = self.fileUrl
+        let fileType = fileType(from: fileUrl)
         Task { @concurrent in
-            guard let destination = CGImageDestinationCreateWithURL(fileUrl as CFURL, kUTTypePNG, 1, nil) else {
+            guard let destination = CGImageDestinationCreateWithURL(
+                fileUrl as CFURL,
+                fileType,
+                1,
+                nil
+            ) else {
                 return
             }
             CGImageDestinationAddImage(destination, image, [kCGImageDestinationLossyCompressionQuality: 1.0] as CFDictionary)
@@ -93,6 +102,19 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
                     exportSuccessful = true
                 }
             }
+        }
+    }
+
+    nonisolated private func fileType(from fileUrl: URL) -> CFString {
+        guard let fileExtension = fileUrl.absoluteString.lowercased().split(separator: ".").last else {
+            print("⚠️ Please provide a proper file extension")
+            return UTType.png.description as CFString
+        }
+
+        if fileExtension == "jpg" || fileExtension == "jpeg" {
+            return UTType.jpeg.description as CFString
+        } else {
+            return UTType.png.description as CFString
         }
     }
 }
