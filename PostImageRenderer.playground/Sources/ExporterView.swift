@@ -87,7 +87,7 @@ public struct ExporterView<TargetView: View, BackgroundView: View>: View {
             guard let destination = CGImageDestinationCreateWithURL(fileUrl as CFURL, kUTTypePNG, 1, nil) else {
                 return
             }
-            CGImageDestinationAddImage(destination, image, nil)
+            CGImageDestinationAddImage(destination, image, [kCGImageDestinationLossyCompressionQuality: 1.0] as CFDictionary)
             if CGImageDestinationFinalize(destination) {
                 Task { @MainActor in
                     exportSuccessful = true
