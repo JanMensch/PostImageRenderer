@@ -16,6 +16,8 @@ Build a SwiftUI view to your heart's content and use the export button. You can 
 
 There also is a `scale` property. It effectively multiplies the `exportSize`. Apple's default is `1.0`, which you can think of a "non retina" display, resulting in a poor export quality. This playground sets this value to `3.0` and gets a much better export quality. You may however need to manually resize the image after export.
 
+If you want to reduce issues when updating this playground, you can place your own custom reusable components, like color definitions or specific views into the directory `PostImageRenderer.playground/Sources/YourOwnFiles`. That directory is ignored by git and thus only changes in the pain playground file will get overwritten on `git pull`.
+
 ## Known issues
 
 Now there are things that do not work exactly as desired. Apple probably didn't intend Liquid Glass effects to be rendered to a PNG and it seems they have missed a few things on that front.
